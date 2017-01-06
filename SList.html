@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script>
+		// Node class
+		function SLNode(data){
+			this.data = data;
+			this.next = null;
+		}
+		// Singly linked list class
+		function SList(){
+			this.head = null;
+		}
+		// Add val to end of list (also, base function for implementing list
+		// to be used in other functions)
+		SList.prototype.push = function(data) {
+			// instantiate new node
+			var newNode = new SLNode(data);
+			// assign head to new node if head does not exist
+			if(!this.head){
+				this.head = newNode;
+				return this;
+			}
+			// else, add to end of existing list
+			else{
+				var cur = this.head;
+				while(cur.next){
+					cur = cur.next;
+				}
+				cur.next = newNode;
+				return this;
+			}
+		};
+		// remove node containing given value
+		SList.prototype.remove = function(data) {
+			if(!this.head){
+				return this;
+			}
+			else {
+				// remove head if it contains target value
+				if(this.head.data == data){
+					this.head = null;
+				}
+				// else, iterate until the next node contains target
+				else {
+					var cur = this.head;
+					while(cur.next){
+						// found, now remove
+						if(cur.next.data == data){
+							cur.next = cur.next.next;
+							console.log("removed")
+							return this;
+						}
+						cur = cur.next;
+					}
+					// value was not in list
+					console.log("didn't find val");
+					return this;
+				}
+			}
+		};
+		// bubble sort a linked list
+		SList.prototype.sort = function(){
+			// no list? no sort
+			if(!this.head){
+				return this;
+			}
+			// define boolean which will terminate outer loop when sort is complete
+			// declare temp to be used in swap, as necessary
+			else{
+				var status = false, temp;
+				while(status == false){
+					var cur = this.head;
+					status = true;
+					// iterate while cur's next pointer is defined
+					while(cur.next){
+						// swap values if this conditional is true
+						if(cur.data > cur.next.data){
+							temp = cur.data;
+							cur.data = cur.next.data;
+							cur.next.data = temp;
+							status = false;
+						}
+						cur = cur.next;
+					}
+				}
+				// return sorted list
+				return this;
+			}
+		}
+		// insert val into sorted list
+		SList.prototype.insert = function(data) {
+			var newNode = new SLNode(data);
+			if(!this.head){
+				this.head = newNode;
+				return this;
+			}
+			else{
+				var cur = this.head, temp;
+				while(cur.next){
+					// find our insertion point
+					if(cur.data < data){
+						if(cur.next.data > data){
+							temp = cur.next;
+							cur.next = newNode;
+							newNode.next = temp;
+						}
+						// if insertion point is at the end of the list
+						else if(cur.next == null){
+							cur.next = newNode;
+						}
+					}
+					cur = cur.next;
+				}
+				// return list with new node added
+				return this;
+			}
+		};
+	</script>
+</head>
+<body>
+
+</body>
+</html>
