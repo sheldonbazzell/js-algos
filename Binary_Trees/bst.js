@@ -130,7 +130,6 @@ BTNode.prototype.remove = function(data, parentNode){
     } else {
 
         if(this.leftChild && this.rightChild){ 
-        	console.log('case of two children')
             this.data = this.rightChild.getMin();
             this.rightChild.remove(this.data, this);
 
@@ -156,11 +155,10 @@ BTNode.prototype.remove = function(data, parentNode){
 }
 
 BST.prototype.inOrderTraversal = function() {
-	if(!this.root) {
-		return -1
-	} else {
+	if(this.root) {
 		return this.root.inOrderTraversal();
 	}
+	return -1
 }
 
 BTNode.prototype.inOrderTraversal = function() {
@@ -172,6 +170,40 @@ BTNode.prototype.inOrderTraversal = function() {
 	    this.rightChild.inOrderTraversal();
 	}
 }
+
+BST.prototype.preOrderTraversal = function() {
+	if(this.root) {
+		return this.root.preOrderTraversal();
+	}
+	return -1;
+};
+
+BTNode.prototype.preOrderTraversal = function() {
+	console.log(this.data);
+	if(this.leftChild) {
+		this.leftChild.preOrderTraversal();
+	}
+	if(this.rightChild) {
+		this.rightChild.preOrderTraversal();
+	}
+};
+
+BST.prototype.postOrderTraversal = function() {
+	if(this.root) {
+		return this.root.postOrderTraversal();
+	}
+	return -1;
+};
+
+BTNode.prototype.postOrderTraversal = function() {
+	if(this.leftChild) {
+		this.leftChild.postOrderTraversal();
+	}
+	if(this.rightChild) {
+		this.rightChild.postOrderTraversal();
+	}
+	console.log(this.data);
+};
 
 myBST = new BST();
 myBST.push(5)
